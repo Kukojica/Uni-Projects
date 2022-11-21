@@ -1,8 +1,7 @@
-
+import time
 
 
 def intro():
-    import time
     player_1 = input('Имя первого игрока: ')
     player_2 = input('Имя второго игрока: ')
     return player_1, player_2
