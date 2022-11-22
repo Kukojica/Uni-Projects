@@ -28,53 +28,54 @@ def game_board(b):
     #     for i in range(5):
     #         print(f'{b[0+i*5]} | {b[1+i*5]} | {b[2+i*5]} | {b[3+i*5]} | {b[4+i*5]}')
 
+def player1(p,a,b):
+    print(f'Ход игрока {p}')
+    print(f'Ход номер: {a}')
+    game_board(b)
+    valid = False
+    while not valid:
+        try:
+            p = int(input('Введите номер клетки от 1 до 9, чтобы сделать ход: '))
+            if 0 < p < 10:
+                pass
+
+            if b[p - 1] in ['X', 'O']:
+                print('Клетка занята. Попробуйте еще раз')
+            else:
+                b[p - 1] = 'X'
+                valid = True
+        except:
+            print('Вам необходимо ввести номер клетки от 1 до 9. Попробуйте еще раз.')
+    game_board(b)
+
+def player2(p,a,b):
+    print(f'Ход игрока {p}')
+    print(f'Ход номер: {a}')
+    game_board(b)
+    valid = False
+    while not valid:
+        try:
+            p = int(input('Введите номер клетки от 1 до 9, чтобы сделать ход: '))
+            if 0 < p < 10:
+                pass
+            if b[p - 1] in ['X', 'O']:
+                print('Клетка занята. Попробуйте еще раз')
+            else:
+                b[p - 1] = 'O'
+                valid = True
+        except:
+            print('Вам необходимо ввести номер клетки от 1 до 9. Попробуйте еще раз.')
+    game_board(b)
+
 def gameplay():
     p1, p2 = intro()
     game_over = False
     while not game_over:
         for i in bg:
             if i % 2 != 0:
-                print(f'Ход игрока {p1}')
-                print(f'Ход номер: {i}')
-                game_board(b)
-                valid = False
-                while not valid:
-                    p = input('Введите номер клетки, чтобы сделать ход: ')
-                    if p == '':
-                        print('Вам необходимо ввести номер клетки. Попробуйте еще раз.')
-                    else:
-                        p = int(p)
-                        if 0 < p < 10:
-                            pass
-                        else:
-                            print('Клетки с таким номером не существует! Попробуйте еще раз.')
-                        if b[p-1] in ['X', 'O']:
-                            print('Клетка занята. Попробуйте еще раз')
-                        else:
-                            b[p-1] = 'X'
-                            valid = True
-                game_board(b)
+                player1(p1, i, b)
             elif i % 2 == 0:
-                print(f'Ход игрока {p2}')
-                print(f'Ход номер: {i}')
-                game_board(b)
-                valid = False
-                while not valid:
-                    p = input('Введите номер клетки, чтобы сделать ход: ')
-                    if p == '':
-                        print('Вам необходимо ввести номер клетки. Попробуйте еще раз.')
-                    else:
-                        p = int(p)
-                        if 0 < p < 10:
-                            pass
-                        else:
-                            print('Клетки с таким номером не существует! Попробуйте еще раз.')
-                        if b[p-1] in ['X', 'O']:
-                            print('Клетка занята. Попробуйте еще раз')
-                        else:
-                            b[p-1] = 'O'
-                            valid = True
-                game_board(b)
+                player2(p2, i, b)
             if i >= 5:
                 if check(b):
                     if i % 2 != 0:
@@ -103,6 +104,15 @@ def check(b):
             return True
     return False
 
+def decor(func):
+    def wrapper():
+        print('Обнаружен рабочий процесс.')
+        result = func()
+        print('Рабочих процессов не обнаружено.')
+        return result
+    return wrapper
+
+@decor
 def ttt():
     import time
     print('Добро пожаловать в крестики-нолики!')
