@@ -28,7 +28,7 @@ def game_board(b):
     #     for i in range(5):
     #         print(f'{b[0+i*5]} | {b[1+i*5]} | {b[2+i*5]} | {b[3+i*5]} | {b[4+i*5]}')
 
-def player1(p,a,b):
+def user(p,a,b,s):
     print(f'Ход игрока {p}')
     print(f'Ход номер: {a}')
     game_board(b)
@@ -42,30 +42,14 @@ def player1(p,a,b):
             if b[p - 1] in ['X', 'O']:
                 print('Клетка занята. Попробуйте еще раз')
             else:
-                b[p - 1] = 'X'
+                b[p - 1] = s
                 valid = True
         except:
             print('Вам необходимо ввести номер клетки от 1 до 9. Попробуйте еще раз.')
     game_board(b)
 
-def player2(p,a,b):
-    print(f'Ход игрока {p}')
-    print(f'Ход номер: {a}')
-    game_board(b)
-    valid = False
-    while not valid:
-        try:
-            p = int(input('Введите номер клетки от 1 до 9, чтобы сделать ход: '))
-            if 0 < p < 10:
-                pass
-            if b[p - 1] in ['X', 'O']:
-                print('Клетка занята. Попробуйте еще раз')
-            else:
-                b[p - 1] = 'O'
-                valid = True
-        except:
-            print('Вам необходимо ввести номер клетки от 1 до 9. Попробуйте еще раз.')
-    game_board(b)
+def bot():
+    
 
 def gameplay():
     p1, p2 = intro()
@@ -73,9 +57,9 @@ def gameplay():
     while not game_over:
         for i in bg:
             if i % 2 != 0:
-                player1(p1, i, b)
+                user(p1, i, b, s='X')
             elif i % 2 == 0:
-                player2(p2, i, b)
+                user(p2, i, b, s='O')
             if i >= 5:
                 if check(b):
                     if i % 2 != 0:
