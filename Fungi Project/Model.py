@@ -9,8 +9,8 @@ from tensorflow.keras.models import Sequential
 data = 'archive'
 
 batch_size = 24
-img_height = 250
-img_width = 250
+img_height = 200
+img_width = 200
 
 train_ds = tf.keras.utils.image_dataset_from_directory(
   data,
@@ -32,7 +32,7 @@ class_names = train_ds.class_names
 
 AUTOTUNE = tf.data.AUTOTUNE
 train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
-validation_ds = validation_ds.cache().shuffle(100).prefetch(buffer_size=AUTOTUNE)
+validation_ds = validation_ds.cache().shuffle(500).prefetch(buffer_size=AUTOTUNE)
 
 data_augmentation = tf.keras.Sequential([
   layers.RandomFlip("horizontal_and_vertical"),
@@ -70,4 +70,4 @@ history = model.fit(
 print(model.evaluate(train_ds, steps=16))
 print(model.evaluate(validation_ds, steps=16))
 
-model.save('fungi.h5')
+model.save('fungi_m.h5')
