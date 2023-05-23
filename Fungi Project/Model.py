@@ -31,8 +31,8 @@ validation_ds = tf.keras.utils.image_dataset_from_directory(
 class_names = train_ds.class_names
 
 AUTOTUNE = tf.data.AUTOTUNE
-train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
-validation_ds = validation_ds.cache().shuffle(500).prefetch(buffer_size=AUTOTUNE)
+train_ds = train_ds.cache().shuffle(2000).prefetch(buffer_size=AUTOTUNE)
+validation_ds = validation_ds.cache().shuffle(800).prefetch(buffer_size=AUTOTUNE)
 
 data_augmentation = tf.keras.Sequential([
   layers.RandomFlip("horizontal_and_vertical"),

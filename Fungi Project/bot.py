@@ -3,8 +3,8 @@ import tensorflow as tf
 import numpy as np
 
 bot = telebot.TeleBot('6010925971:AAHRJpJJTIZyB-MtD90gUdQBHYHJuTMTepg')
-model = tf.keras.models.load_model('fungi.h5')
-class_names = ['edible', 'poisonous']
+model = tf.keras.models.load_model('fungi_m.h5')
+class_names = ['съедобен', 'несъедобен']
 
 @bot.message_handler(commands=['start'])
 def welcome(message):
@@ -31,7 +31,7 @@ def photo(message):
     img_array = tf.expand_dims(img_array, 0)
     predictions = model.predict(img_array)
     score = tf.nn.softmax(predictions[0])
-    bot.send_message(message.chat.id, "С вероятностью, равной {:.2f}%, я могу предположить, что это {}."
+    bot.send_message(message.chat.id, "С вероятностью, равной {:.2f}%, я могу предположить, что этот гриб {}."
                      .format(100 * np.max(score), class_names[np.argmax(score)]))
 
 bot.polling(none_stop=True)
